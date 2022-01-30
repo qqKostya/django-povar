@@ -48,6 +48,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_recipes(self):
+        return self.recipes.all()
+
     def get_absolute_url(self):
         return reverse("post_single", kwargs={"slug": self.category.slug, "post_slug": self.slug})
 
@@ -61,7 +64,7 @@ class Recipe(models.Model):
     directions = models.TextField()
     post = models.ForeignKey(
         Post,
-        related_name="recipe",
+        related_name="recipes",
         on_delete=models.SET_NULL,
         null=True,
         blank=True
